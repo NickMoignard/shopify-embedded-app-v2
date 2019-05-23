@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190512075447) do
+ActiveRecord::Schema.define(version: 20190523030717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "shopify_customers", force: :cascade do |t|
+    t.bigint   "shopify_id"
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "orders_count"
+    t.float    "total_spent"
+    t.bigint   "last_order_id"
+    t.boolean  "verified_email"
+    t.string   "phone"
+    t.string   "tags"
+    t.string   "currency"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "shop_id"
+    t.index ["shop_id"], name: "index_shopify_customers_on_shop_id", using: :btree
+  end
 
   create_table "shops", force: :cascade do |t|
     t.string   "shopify_domain", null: false
@@ -23,4 +41,5 @@ ActiveRecord::Schema.define(version: 20190512075447) do
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true, using: :btree
   end
 
+  add_foreign_key "shopify_customers", "shops"
 end
