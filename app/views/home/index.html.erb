@@ -7,8 +7,4 @@
 <% end %>
 <h2>Customers</h2>
 <h3><%= @customers.count %></h3>
-<ul>
-  <% @customers.each do |c| %>
-    <li><%= c.email %></li>
-  <% end %>
-</ul>
+<%= link_to 'Download Customers', '/export.csv', :target => "_blank" %>
